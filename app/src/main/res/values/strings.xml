@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Yelp</string>
+    <string-array name="category_array">
+        <item>Default</item>
+        <item>Arts &amp; Entertainment</item>
+        <item>Health &amp; Medical</item>
+        <item>Hotels &amp; Travel</item>
+        <item>Food</item>
+        <item>Professional Services</item>
+    </string-array>
+    <string name="keyword">KeyWord <font color='#FF0000'>*</font></string>
+    <string name="category">Category <font color='#FF0000'>*</font></string>
+    <string name="location">Location <font color='#FF0000'>*</font></string>
+</resources>
