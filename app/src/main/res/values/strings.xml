@@ -11,4 +11,5 @@
     <string name="keyword">KeyWord <font color='#FF0000'>*</font></string>
     <string name="category">Category <font color='#FF0000'>*</font></string>
     <string name="location">Location <font color='#FF0000'>*</font></string>
+    <string name="business_link"><u>Business Link</u></string>
 </resources>
