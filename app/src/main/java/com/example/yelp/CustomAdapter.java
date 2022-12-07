@@ -4,6 +4,7 @@ package com.example.yelp;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -75,6 +76,11 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
             viewHolder.setRating(localReviewSet.getJSONObject(position).getString("rating"));
             viewHolder.setText(localReviewSet.getJSONObject(position).getString("text"));
             viewHolder.setTime(localReviewSet.getJSONObject(position).getString("time"));
+
+            if(position == 2){
+                LinearLayout review_ll = (LinearLayout) viewHolder.this_view.findViewById(R.id.review_ll);
+                review_ll.setPadding(0,0,0,0);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.media.Image;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
@@ -20,6 +21,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -52,7 +54,9 @@ public class MainActivity extends AppCompatActivity {
     EditText distance_et;
     Spinner category_sp;
     Button submit;
+    Button clear;
     CheckBox auto_check;
+    TextView noresult_tv;
     TableLayout result_tl;
     RequestQueue queue;
     MySingleton msl;
@@ -83,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         distance_et = (EditText) findViewById(R.id.distance);
         category_sp = (Spinner) findViewById(R.id.category_spinner);
         result_tl = (TableLayout) findViewById(R.id.result_table);
+        noresult_tv = (TextView) findViewById(R.id.noresult_tv);
 
 
 
@@ -90,6 +95,10 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 //        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        ImageButton reservation_bt = (ImageButton) findViewById(R.id.reservation_button);
+        reservation_bt.setOnClickListener(new MyReservationListener());
+
 
         Spinner spinner = (Spinner) findViewById(R.id.category_spinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -112,6 +121,9 @@ public class MainActivity extends AppCompatActivity {
         submit = (Button) findViewById(R.id.submit);
         submit.setOnClickListener(new MySubmitListener());
 
+        clear = (Button) findViewById(R.id.clear);
+        clear.setOnClickListener(new MyClearListener());
+
         queue = Volley.newRequestQueue(this);
         msl = MySingleton.getInstance(this);
 
@@ -121,6 +133,15 @@ public class MainActivity extends AppCompatActivity {
         location_tv = (EditText) findViewById(R.id.location);
 
         Log.d("[DEBUG]","finish on create");
+    }
+
+    class MyReservationListener implements View.OnClickListener{
+
+        @Override
+        public void onClick(View view) {
+            Intent intent=new Intent(ma, ReservationActivity.class);
+            startActivity(intent);
+        }
     }
 
     class MyKeywordListener implements TextWatcher{
@@ -154,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
                                 for(int i=0; i<len; i++) {
                                     auto_string_list[i]=auto_list.getJSONObject(i).get("title").toString();
                                 }
-                                Log.d("[DEBUG]", auto_string_list[0]);
+//                                Log.d("[DEBUG]", auto_string_list[0]);
                                 ArrayAdapter<String> auto_adapter = new ArrayAdapter<String>
                                         (ma, android.R.layout.select_dialog_item, auto_string_list);
                                 actv.setAdapter(auto_adapter);
@@ -189,6 +210,7 @@ public class MainActivity extends AppCompatActivity {
     class MySubmitListener implements View.OnClickListener{
 
         private void clearTable(){
+            noresult_tv.setVisibility(View.GONE);
             result_tl.removeAllViews();
         }
 
@@ -241,6 +263,7 @@ public class MainActivity extends AppCompatActivity {
             imgv.setLayoutParams(imgv_layout);
 
             TextView name_tv = new TextView(getApplicationContext());
+            name_tv.setMaxLines(3);
             name_tv.setText(name);
             name_tv.setBackgroundColor(gray);
             name_tv.setGravity(Gravity.CENTER);
@@ -366,6 +389,7 @@ public class MainActivity extends AppCompatActivity {
                                             @Override
                                             public void onErrorResponse(VolleyError error) {
                                                 Log.d("[DEBUG]", error.toString());
+                                                noresult_tv.setVisibility(View.VISIBLE);
                                             }
                                         });
                                 msl.addToRequestQueue(jsonArrayRequest);
@@ -376,7 +400,7 @@ public class MainActivity extends AppCompatActivity {
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-
+                            noresult_tv.setVisibility(View.VISIBLE);
                         }
                     });
             msl.addToRequestQueue(jsonArrayRequest);
@@ -412,6 +436,7 @@ public class MainActivity extends AppCompatActivity {
                                         }, new Response.ErrorListener() {
                                             @Override
                                             public void onErrorResponse(VolleyError error) {
+                                                noresult_tv.setVisibility(View.VISIBLE);
                                                 Log.d("[DEBUG]", error.toString());
                                             }
                                         });
@@ -423,7 +448,7 @@ public class MainActivity extends AppCompatActivity {
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-
+                            noresult_tv.setVisibility(View.VISIBLE);
                         }
                     });
             msl.addToRequestQueue(jsonObjectRequest);
@@ -433,23 +458,51 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View view) {
             Log.d("[DEBUG]", actv.getText().toString());
             String keyword_string = actv.getText().toString();
+            String distance_string = distance_et.getText().toString();
             String location_string = location_tv.getText().toString();
             if(keyword_string.matches("")){
                 actv.setError("This field is required");
             } else{
-                if(auto_check.isChecked()){
-                    // auto check
-                    searchByIP();
+                if(distance_string.matches("")){
+                    distance_et.setError("This field is required");
                 } else{
-                    if(location_string.matches("")){
-                        location_tv.setError("This field is required");
+                    if(auto_check.isChecked()){
+                        // auto check
+                        searchByIP();
                     } else{
-                        // get location
-                        searchByLoc(location_tv.getText().toString());
+                        if(location_string.matches("")){
+                            location_tv.setError("This field is required");
+                        } else{
+                            // get location
+                            searchByLoc(location_tv.getText().toString());
+                        }
                     }
                 }
             }
 //            actv.setError("This field is required");
+        }
+    }
+
+    class MyClearListener implements View.OnClickListener{
+
+        private void clearTable(){
+            noresult_tv.setVisibility(View.GONE);
+            result_tl.removeAllViews();
+        }
+
+        @Override
+        public void onClick(View view) {
+            actv.setText("");
+            actv.setError(null);
+            distance_et.setText("");
+            distance_et.setError(null);
+            Spinner spinner = (Spinner) findViewById(R.id.category_spinner);
+            spinner.setSelection(0);
+            location_tv.setText("");
+            location_tv.setError(null);
+            location_tv.setVisibility(View.VISIBLE);
+            auto_check.setChecked(false);
+            clearTable();
         }
     }
 }

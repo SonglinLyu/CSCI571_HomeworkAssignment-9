@@ -12,14 +12,15 @@
         <TableLayout
             android:id="@+id/detail_tb"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp">
 
             <TableRow>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:paddingLeft="20dp"
                     android:layout_weight="1"
                     android:textStyle="bold"
                     android:textColor="@color/black"
@@ -46,8 +47,8 @@
                     android:id="@+id/address_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:layout_weight="1"
+                    android:textColor="@color/black"
                     android:textSize="12dp"
                     ></TextView>
 
@@ -57,6 +58,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:layout_weight="1"
+                    android:textColor="@color/black"
                     android:textSize="12dp"
                     ></TextView>
 
@@ -69,7 +71,6 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:layout_weight="1"
                     android:textStyle="bold"
                     android:textColor="@color/black"
@@ -96,8 +97,8 @@
                     android:id="@+id/phone_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:layout_weight="1"
+                    android:textColor="@color/black"
                     android:textSize="12dp"
                     ></TextView>
 
@@ -119,7 +120,6 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:layout_weight="1"
                     android:textStyle="bold"
                     android:textColor="@color/black"
@@ -146,8 +146,8 @@
                     android:id="@+id/category_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:layout_weight="1"
+                    android:textColor="@color/black"
                     android:textSize="12dp"
                     ></TextView>
 

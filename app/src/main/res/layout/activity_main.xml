@@ -168,11 +168,23 @@
                 android:textColor="@color/black"
                 ></TextView>
 
+            <TextView
+                android:id="@+id/noresult_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/results_text"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="15dp"
+                android:visibility="gone"
+                android:textColor="@color/red_yelp"
+                android:text="No Results Found!"/>
+
             <RelativeLayout
+                android:id="@+id/result_rl"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
-                android:layout_below="@id/results_text"
+                android:layout_below="@id/noresult_tv"
                 >
 
                 <ScrollView

@@ -5,10 +5,12 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
+        android:id="@+id/review_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/black"
         android:orientation="vertical"
+        android:paddingBottom="3dp"
         tools:ignore="MissingConstraints">
 
         <TextView

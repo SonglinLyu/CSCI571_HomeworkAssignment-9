@@ -39,9 +39,9 @@ public class ReviewObjectFragment extends Fragment {
             review_rv = (RecyclerView) view.findViewById(R.id.review_rv);
             review_rv.setAdapter(new CustomAdapter(reviews));
             review_rv.setLayoutManager(new LinearLayoutManager(getActivity()));
-            DividerItemDecoration black_divider = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
-            black_divider.setDrawable(getResources().getDrawable(R.drawable.divide_line));
-            review_rv.addItemDecoration(black_divider);
+//            DividerItemDecoration black_divider = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
+//            black_divider.setDrawable(getResources().getDrawable(R.drawable.divide_line));
+//            review_rv.addItemDecoration(black_divider);
         } catch (JSONException e) {
             e.printStackTrace();
         }

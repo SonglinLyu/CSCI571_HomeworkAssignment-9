@@ -52,8 +52,7 @@ public class MapObjectFragment extends Fragment {
                     googleMap.addMarker(new MarkerOptions()
                             .position(loc)
                             .title("Marker"));
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 15f));
-//                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 15f));
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 12f));
                 }
             });
         } catch (JSONException e) {
